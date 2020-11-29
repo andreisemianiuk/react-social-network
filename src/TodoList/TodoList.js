@@ -26,4 +26,4 @@ TodoList.propTypes = {
 	todos: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
-export default TodoList
+export default TodoList	
