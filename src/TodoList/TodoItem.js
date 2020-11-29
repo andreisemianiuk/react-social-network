@@ -1,9 +1,11 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 const styles = {
   li: {
     display: "flex",
-    justifyContent: "space-between",
+		justifyContent: "space-between",
+		alignItems: 'center',
     width: "400px",
     border: "2px solid #333",
     padding: ".5rem",
@@ -23,5 +25,10 @@ const TodoItem = ({ todo, index }) => {
     </li>
   );
 };
+
+TodoItem.propTypes = {
+	todo: PropTypes.object.isRequired,
+	index: PropTypes.number
+}
 
 export default TodoItem;

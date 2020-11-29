@@ -1,6 +1,7 @@
 import React from 'react';
 import { uniqueKeyConstructor } from '../helpers/uniqueKeyCreator';
 import TodoItem from './TodoItem';
+import PropTypes from 'prop-types';
 
 const styles = {
 	ul: {
@@ -19,6 +20,10 @@ const TodoList = (props) => {
 			
 		</ul>
 	)
+}
+
+TodoList.propTypes = {
+	todos: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
 export default TodoList
