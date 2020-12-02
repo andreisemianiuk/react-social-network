@@ -1,8 +1,17 @@
 import React, { useEffect } from "react";
 import TodoList from "./TodoList/TodoList";
 import Context from "./context";
-import AddTodo from "./TodoList/AddTodo";
 import { Preloader } from "./Preloader";
+import Modal from "./Modal/Modal";
+
+const AddTodo = React.lazy(
+  () =>
+    new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(import("./TodoList/AddTodo"));
+      }, 3000);
+    })
+);
 
 function App() {
   const [todos, setTodos] = React.useState([]);
@@ -13,8 +22,8 @@ function App() {
       .then((response) => response.json())
       .then((todos) => {
         setTimeout(() => {
-					setTodos(todos);
-					setIsLoading(false)
+          setTodos(todos);
+          setIsLoading(false);
         }, 2000);
       });
   }, []);
@@ -48,7 +57,11 @@ function App() {
     <Context.Provider value={{ removeTodo }}>
       <div className='wrapper'>
         <h1>React Tutorial</h1>
-        <AddTodo onCreate={addTodoItem} />
+        <Modal />
+        <React.Suspense fallback={<Preloader />}>
+          <AddTodo onCreate={addTodoItem} />
+        </React.Suspense>
+
         {isLoading && <Preloader />}
         {todos.length ? (
           <TodoList todos={todos} onChange={changeTodo} />
