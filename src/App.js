@@ -1,62 +1,62 @@
-import React, { useEffect } from "react";
-import TodoList from "./TodoList/TodoList";
-import Context from "./context";
-import { Preloader } from "./Preloader";
-import Modal from "./Modal/Modal";
+import React, { useEffect } from 'react'
+import TodoList from './TodoList/TodoList'
+import Context from './context'
+import { Preloader } from './Preloader'
+import Modal from './Modal/Modal'
 
 const AddTodo = React.lazy(
   () =>
-    new Promise((resolve) => {
+    new Promise(resolve => {
       setTimeout(() => {
-        resolve(import("./TodoList/AddTodo"));
-      }, 3000);
+        resolve(import('./TodoList/AddTodo'))
+      }, 3000)
     })
-);
+)
 
 function App() {
-  const [todos, setTodos] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState([true]);
+  const [todos, setTodos] = React.useState([])
+  const [isLoading, setIsLoading] = React.useState([true])
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos?_limit=5")
-      .then((response) => response.json())
-      .then((todos) => {
+    fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
+      .then(response => response.json())
+      .then(todos => {
         setTimeout(() => {
-          setTodos(todos);
-          setIsLoading(false);
-        }, 2000);
-      });
-  }, []);
+          setTodos(todos)
+          setIsLoading(false)
+        }, 2000)
+      })
+  }, [])
 
   function changeTodo(id) {
     setTodos(
-      todos.map((todo) => {
+      todos.map(todo => {
         if (todo.id === id) {
-          todo.completed = !todo.completed;
+          todo.completed = !todo.completed
         }
-        return todo;
+        return todo
       })
-    );
+    )
   }
 
-  const removeTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
+  const removeTodo = id => {
+    setTodos(todos.filter(todo => todo.id !== id))
+  }
 
-  const addTodoItem = (title) => {
+  const addTodoItem = title => {
     setTodos(
       todos.concat({
         id: Date.now(),
         completed: false,
         title,
       })
-    );
-  };
+    )
+  }
 
   return (
     <Context.Provider value={{ removeTodo }}>
       <div className='wrapper'>
-        <h1>React Tutorial</h1>
+        <h1 className='title'>Todo List</h1>
         <Modal />
         <React.Suspense fallback={<Preloader />}>
           <AddTodo onCreate={addTodoItem} />
@@ -70,7 +70,7 @@ function App() {
         )}
       </div>
     </Context.Provider>
-  );
+  )
 }
 
-export default App;
+export default App

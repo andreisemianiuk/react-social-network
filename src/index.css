@@ -18,6 +18,10 @@ code {
 	width: 700px;
 }
 
+.title {
+	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
 .rm {
 	color: red;
 	font-weight: bold;
